@@ -1,10 +1,12 @@
 import {
+  ActionFunction,
   json,
   LoaderFunction,
   redirect,
   type MetaFunction,
 } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData } from "@remix-run/react";
+
 import { isUserAuthenticated } from "~/services/auth.server";
 import { getUrls } from "~/services/db.server";
 
@@ -34,6 +36,17 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   return redirect("/auth/login", 302);
 };
 
+export const action: ActionFunction = async ({ context, request }) => {
+  const formData = await request.formData();
+  const _action = formData.get("_action");
+
+  // @TODO check if user authenticated, otherwise redirect to login
+
+  if (_action === "delete") {
+    // @TODO Add data deletion
+  }
+};
+
 export default function Dashboard() {
   const { urls, hostDomain } = useLoaderData<LoaderData>();
   return (
@@ -45,9 +58,10 @@ export default function Dashboard() {
       <div>
         <ul>
           {urls.map((url) => (
-            <li key={url.shortUrl}>
-              {hostDomain}
-              <strong>/{url.shortUrl}</strong> -&gt; {url.url}
+            <li key={url.shortUrl} className="mt-1">
+                {hostDomain}
+                <strong>/{url.shortUrl}</strong> -&gt; {url.url}
+                {/* @TODO add Delete button */}
             </li>
           ))}
         </ul>
