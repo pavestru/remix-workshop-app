@@ -62,7 +62,6 @@ export default function Dashboard() {
       </div>
       <Outlet />
       <div>
-        <Link to="/dashboard/new">Add new URL</Link>
         <ul>
           {urls.map((url) => (
             <li key={url.shortUrl} className="mt-1">

@@ -1,4 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export default function DashboardIndex() {
-  // @TODO: Why might we need this?
-  return;
+  return <Link to="/dashboard/new">Add new URL</Link>;
 }
